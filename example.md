@@ -22,6 +22,27 @@ Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutru
 
 Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc.
 
+```dart
+Future<void> main(List<String> args) async {
+  // Parse command-line arguments.
+  parseArgs(args);
+
+  // Initialize the global settings instance in settings.dart
+  // Needed early both because it runs syncronously and would block UI,
+  // as well as because the toggle feature checks for a saved process.
+  settings = Settings();
+  await settings.initialize();
+
+  if (Config.toggle) {
+    // `-t` or `--toggle` flag detected.
+    await _toggleActiveWindow();
+  } else {
+    // Run main GUI interface.
+    runApp(MyApp());
+  }
+}
+```
+
 ### Some great subheading (h3)
 
 Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
